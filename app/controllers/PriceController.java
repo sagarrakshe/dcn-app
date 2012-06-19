@@ -7,18 +7,27 @@ import models.Price;
 import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.node.ObjectNode;
 
+import forms.PriceForm;
+
+import play.data.Form;
 import play.libs.Json;
 import play.mvc.BodyParser;
 import play.mvc.Controller;
 import play.mvc.Result;
+import play.db.ebean.Model;
+import views.html.price.*;
+
 
 public class PriceController extends Controller {
 
+	final static Form<PriceForm> priceForm =  form (PriceForm.class);
+	
 	/**
 	 * Return List of all Prices in JSON format.
 	 * 
 	 * @return
 	 */
+	
 	public static Result all() {
 		List<Price> prices = Price.all();
 		return ok(Json.toJson(prices));
@@ -26,9 +35,42 @@ public class PriceController extends Controller {
 
 	/**
 	 * Return Price by id.
+	 * @return 
 	 * 
 	 * @return
 	 */
+	
+	public static Result index(){
+		return ok(index.render());
+	}
+	
+	public static Result create_new(){
+		return ok(create.render(priceForm));
+	}
+	
+	public static Result create_save(){
+		Form<PriceForm> filledForm = priceForm.bindFromRequest();
+			
+		if(filledForm.hasErrors()){
+			return badRequest(views.html.price.create.render(filledForm));
+		}
+		
+		PriceForm priceForm=filledForm.get();
+		if(priceForm==null){
+			return badRequest(views.html.price.create.render(filledForm));
+		}
+		
+		Price price=new Price();
+		price.amount=priceForm.amount;
+		price.save();
+		
+		return  index();//ok(views.html.welcome.render());		
+	}
+	
+	public Result delete_record(){
+		return ok();
+	}
+	
 	public static Result get(Long id) {
 		if (id == null) {
 			return badRequest("Expecting Price Id");
@@ -84,5 +126,5 @@ public class PriceController extends Controller {
 		price.update();
 		return ok();
 	}
-
+	
 }

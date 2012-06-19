@@ -16,7 +16,7 @@ public class Price extends Model {
 	public Long id;
 	
 	@NotNull
-	public int amount;
+	public Integer amount;
 	
 	/*@Temporal(value=TemporalType.DATE)
 	@NotNull

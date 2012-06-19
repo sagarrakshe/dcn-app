@@ -5,7 +5,8 @@
     <ul class="nav nav-pills">      
       <li class=""><a href="@routes.AreaController.create_new()" id="area-grid-add">Add</a></li>
       <li class=""><a href="#" link="@routes.AreaController.update_get(0L)" id="area-grid-edit">Edit</a></li>
-      <li class=""><a href="#" id="area-grid-delete">Delete</a></li>      
+      <li class=""><a href="#" id="area-grid-delete">Delete</a></li>
+      <li class=""><a href="#" id="area-grid-help">Help</a></li>      
     </ul>
   </div>
 
@@ -22,6 +23,7 @@
 
 		$("#area-grid-edit").click(area_grid_edit_click);
 		$("#area-grid-delete").click(area_grid_delete_click);
+		$("#area-grid-help").click(area_grid_help_click);
 
 	});
 
@@ -69,16 +71,16 @@
 	};
 
 	var area_grid_edit_click = function(){		
-		var id = $("#area-grid").jqGrid('getGridParam','selrow'); 
-		if (id) { 
-			var ret = $("#area-grid").jqGrid('getRowData',id); 			
+		var selectedRow = $("#area-grid").jqGrid('getGridParam','selrow'); 
+		if (selectedRow) { 
+			var area = $("#area-grid").jqGrid('getRowData',selectedRow); 			
 			var link=$(this).attr("link");
-			link=link.replace('0',ret.id);
+			link=link.replace('0',area.id);
 			$(this).attr('href',link);
 		} else { 
 			alert("Please select row");
 		} 		
-	}
+	};
 
 	var area_grid_delete_click = function(){		
 		var id = $("#area-grid").jqGrid('getGridParam','selrow'); 
@@ -87,7 +89,17 @@
 		} else { 
 			alert("Please select row");
 		}
-	}
+	};
+	
+	var area_grid_help_click = function() {
+		var selectedRow = $("#area-grid").jqGrid('getGridParam','selrow'); 
+		if (selectedRow) { 
+			var area = $("#area-grid").jqGrid('getRowData',selectedRow); 						
+			alert(area.name);
+		} else { 
+			alert("Please select row");
+		}
+	};
 
 	</script>
 }	
