@@ -5,6 +5,7 @@ import models.User;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
+import views.html.info.*;
 import forms.UserForm;
 
 public class LoginController extends Controller {
@@ -42,5 +43,10 @@ public class LoginController extends Controller {
 		session().put("role", "admin");
 		return ok(views.html.welcome.render());
 	}
+	
+	public static Result info(){
+		return ok(views.html.info.render());
+	}
+	
 
 }

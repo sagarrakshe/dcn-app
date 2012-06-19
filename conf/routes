@@ -7,6 +7,7 @@ GET     /                           controllers.Application.index()
 GET		/login						controllers.LoginController.index()
 POST	/welcome					controllers.LoginController.submit()
 GET		/get/welcome				controllers.LoginController.welcome()
+GET		/info						controllers.LoginController.info()
 
 # User
 GET		/portal/users				controllers.UserController.index()

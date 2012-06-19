@@ -23,7 +23,7 @@
     <div class="navbar navbar-fixed-top">
         <div class="navbar-inner">
             <div style="margin-left:10px;margin-right:10px">
-                <a class="brand" href="#">Darpan Cable Network</a>
+                <a class="brand" href="@routes.LoginController.info()">Darpan Cable Network</a>
                 <p class="navbar-text pull-right">
                     @session.get("username").toUpperCase() &nbsp; @session.get("role").toUpperCase()
                 </p>                
